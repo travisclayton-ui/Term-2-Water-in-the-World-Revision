@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water in the World — Year 8 Geography Quiz</title>
+  <style>
+    :root{
+      --bg:#f4f6f3;--surface:#ffffff;--surface2:#f9faf8;--ink:#1e2b1e;--muted:#5a6e5a;
+      --accent:#1a6b3c;--accent2:#1565a0;--border:#d5ddd4;--ok:#1d7a43;--bad:#a93a3a;
+      --warn:#c97700;--shadow:0 8px 28px rgba(0,0,0,.09);--r:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      background:var(--bg);color:var(--ink);line-height:1.55;}
+    header{background:linear-gradient(135deg,#1a5c35,#1a6b7a);color:#fff;
+      padding:26px 18px 20px;}
+    header h1{font-size:1.9rem;margin-bottom:6px}
+    header p{max-width:860px;font-size:1rem;opacity:.9}
+    nav.sections{display:flex;flex-wrap:wrap;gap:10px;padding:14px 16px;
+      background:#fff;border-bottom:1px solid var(--border);}
+    nav.sections a{text-decoration:none;background:var(--accent);color:#fff;
+      border-radius:999px;padding:6px 14px;font-size:.86rem;font-weight:600;}
+    nav.sections a:hover{background:#145530}
+    main{max-width:1120px;margin:0 auto;padding:20px 14px 56px;}
+    .section-header{background:linear-gradient(90deg,var(--accent),#2a8a55);color:#fff;
+      border-radius:12px 12px 0 0;padding:14px 18px;margin-top:28px;}
+    .section-header.alt{background:linear-gradient(90deg,#1565a0,#1a7abf);}
+    .section-header.warn{background:linear-gradient(90deg,#7a3a1a,#b05a2a);}
+    .section-header.map{background:linear-gradient(90deg,#1a456b,#1a6589);}
+    .section-header h2{font-size:1.24rem}
+    .section-header p{font-size:.92rem;opacity:.9;margin-top:4px}
+    .card{background:var(--surface);border:1px solid var(--border);
+      border-radius:0 0 var(--r) var(--r);box-shadow:var(--shadow);padding:18px 18px 20px;
+      margin-bottom:4px;}
+    .stimulus{background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+      padding:12px 14px;margin-bottom:18px;}
+    .stimulus img{max-width:100%;border-radius:8px;display:block;margin:8px auto;}
+    .stimulus figcaption{font-size:.82rem;color:var(--muted);text-align:center;margin-top:4px}
+    .stimulus p{font-size:.93rem;color:var(--ink);}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px;}
+    .q{padding:13px 14px;border:1px solid var(--border);border-radius:10px;background:#fff;
+      margin-bottom:10px;}
+    .q h3{font-size:.98rem;margin-bottom:8px;color:var(--ink);}
+    .q h3 span{display:inline-block;background:var(--accent);color:#fff;border-radius:6px;
+      padding:1px 7px;font-size:.8rem;margin-right:8px;font-weight:600;}
+    .options label{display:block;padding:7px 10px;border:1px solid var(--border);
+      border-radius:8px;margin:5px 0;background:#fff;cursor:pointer;font-size:.94rem;}
+    .options label:hover{background:#eef6f0}
+    .options input{margin-right:6px}
+    .tf-row{display:flex;gap:10px;margin-top:6px;font-size:.94rem;}
+    .tf-row label{flex:1;text-align:center;padding:8px 6px;border:1px solid var(--border);
+      border-radius:8px;cursor:pointer;background:#fff;font-weight:600;}
+    .tf-row label:hover{background:#eef6f0}
+    .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;font-size:.92rem;}
+    .match-term{background:#e8f5ee;border:1px solid #b8ddc8;border-radius:8px;padding:7px 10px;
+      font-weight:600}
+    .match-select{padding:7px;border:1px solid var(--border);border-radius:8px;width:100%;}
+    .source-box{background:#fffbf0;border-left:4px solid var(--warn);border-radius:0 8px 8px 0;
+      padding:11px 13px;margin-bottom:14px;font-size:.94rem;}
+    .source-box cite{display:block;font-size:.8rem;color:var(--muted);margin-top:4px}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;padding:0 2px}
+    button.primary{background:var(--accent);color:#fff;border:none;border-radius:10px;
+      padding:11px 20px;font-weight:700;font-size:.98rem;cursor:pointer}
+    button.secondary{background:#5a6e5a;color:#fff;border:none;border-radius:10px;
+      padding:11px 18px;font-weight:600;cursor:pointer}
+    button:hover{opacity:.9}
+    .result{display:none;margin-top:20px;background:#f0faf4;border:1px solid #b8ddc8;
+      border-radius:12px;padding:16px 18px;font-size:.95rem;}
+    .result h3{color:var(--accent);font-size:1.18rem;margin-bottom:6px}
+    .score-badge{font-size:2.5rem;font-weight:800;color:var(--accent);}
+    .grade{display:inline-block;background:var(--accent);color:#fff;border-radius:8px;
+      padding:4px 12px;font-weight:700;margin:6px 0;font-size:.95rem;}
+    .fb-list{margin-top:10px}
+    .fb-item{padding:5px 0;border-bottom:1px solid #d5ddd4;font-size:.9rem;}
+    .correct{color:var(--ok);font-weight:600}
+    .wrong{color:var(--bad);font-weight:600}
+    .key-note{font-size:.8rem;color:var(--muted);margin-top:10px;padding:8px;
+      background:#f6f6f6;border-radius:8px}
+    @media(max-width:720px){
+      .two-col{grid-template-columns:1fr}
+      header h1{font-size:1.5rem}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>💧 Water in the World — Year 8 Geography Quiz</h1>
+  <p>This PAT-style quiz has 30 questions about climate graphs, population pyramids, polluted rivers, map skills, flooding, water scarcity and a WaterAid project in Nepal. Choose the best answer for each question.</p>
+</header>
+
+<nav class="sections">
+  <a href="#s1">1 Climate Graph</a>
+  <a href="#s2">2 Population Pyramid</a>
+  <a href="#s3">3 Polluted River</a>
+  <a href="#s4">4 Map Skills</a>
+  <a href="#s5">5 Floods &amp; Scarcity</a>
+  <a href="#s6">6 Text: India</a>
+  <a href="#s7">7 WaterAid Nepal</a>
+</nav>
+
+<main>
+
+<!-- SECTION 1 -->
+<section id="s1">
+  <div class="section-header">
+    <h2>Section 1 — Climate Graph (Kathmandu, Nepal)</h2>
+    <p>Use the climate graph for Kathmandu to answer Questions 1–6.</p>
+  </div>
+  <div class="card">
+    <figure class="stimulus">
+      <img src="assets/kathmandu_climate.png" alt="Climate graph for Kathmandu, Nepal">
+      <figcaption>Fig 1. Climate graph for Kathmandu, Nepal. (Months vs rainfall and temperature)</figcaption>
+    </figure>
+
+    <div class="q" id="q1">
+      <h3><span>Q1</span> In which season does Kathmandu receive the <strong>most</strong> rainfall?</h3>
+      <div class="options">
+        <label><input type="radio" name="q1" value="A">A. Winter</label>
+        <label><input type="radio" name="q1" value="B">B. Summer (monsoon)</label>
+        <label><input type="radio" name="q1" value="C">C. Autumn</label>
+        <label><input type="radio" name="q1" value="D">D. Spring</label>
+      </div>
+    </div>
+
+    <div class="q" id="q2">
+      <h3><span>Q2</span> Which <strong>two months</strong> are likely to have the highest rainfall in Kathmandu?</h3>
+      <div class="options">
+        <label><input type="radio" name="q2" value="A">A. January and February</label>
+        <label><input type="radio" name="q2" value="B">B. April and May</label>
+        <label><input type="radio" name="q2" value="C">C. July and August</label>
+        <label><input type="radio" name="q2" value="D">D. October and November</label>
+      </div>
+    </div>
+
+    <div class="q" id="q3">
+      <h3><span>Q3</span> What is the approximate average temperature in the <strong>coolest</strong> month in Kathmandu?</h3>
+      <div class="options">
+        <label><input type="radio" name="q3" value="A">A. About 5–10 °C</label>
+        <label><input type="radio" name="q3" value="B">B. About 15–20 °C</label>
+        <label><input type="radio" name="q3" value="C">C. About 25–30 °C</label>
+        <label><input type="radio" name="q3" value="D">D. Above 30 °C</label>
+      </div>
+    </div>
+
+    <div class="q" id="q4">
+      <h3><span>Q4</span> Kathmandu has a distinct wet season and dry season.</h3>
+      <div class="tf-row">
+        <label><input type="radio" name="q4" value="T">True</label>
+        <label><input type="radio" name="q4" value="F">False</label>
+      </div>
+    </div>
+
+    <div class="q" id="q5">
+      <h3><span>Q5</span> Which statement best describes the pattern of temperature over the year in Kathmandu?</h3>
+      <div class="options">
+        <label><input type="radio" name="q5" value="A">A. Temperatures stay the same all year.</label>
+        <label><input type="radio" name="q5" value="B">B. Temperatures are highest in winter and lowest in summer.</label>
+        <label><input type="radio" name="q5" value="C">C. Temperatures rise from winter to late spring, then fall slightly during the monsoon.</label>
+        <label><input type="radio" name="q5" value="D">D. Temperatures fall from summer to winter, with no change at any other time.</label>
+      </div>
+    </div>
+
+    <div class="q" id="q6">
+      <h3><span>Q6</span> During which part of the year might rural communities near Kathmandu find it <strong>hardest</strong> to access safe, clean water?</h3>
+      <div class="options">
+        <label><input type="radio" name="q6" value="A">A. At the end of the dry, cool season, when rainfall is low and temperatures are still mild.</label>
+        <label><input type="radio" name="q6" value="B">B. In the middle of the monsoon, when rainfall is highest.</label>
+        <label><input type="radio" name="q6" value="C">C. Just after the monsoon, when rivers are at their fullest.</label>
+        <label><input type="radio" name="q6" value="D">D. At the coldest time of year, when water turns to ice for long periods.</label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 -->
+<section id="s2">
+  <div class="section-header alt">
+    <h2>Section 2 — Population Pyramid (Nepal)</h2>
+    <p>Use the population pyramid for Nepal to answer Questions 7–11.</p>
+  </div>
+  <div class="card">
+    <figure class="stimulus">
+      <img src="assets/nepal_population_pyramid.png" alt="Population pyramid for Nepal">
+      <figcaption>Fig 2. Population pyramid for Nepal (2021).</figcaption>
+    </figure>
+
+    <div class="q" id="q7">
+      <h3><span>Q7</span> What does the wide base of Nepal’s population pyramid show?</h3>
+      <div class="options">
+        <label><input type="radio" name="q7" value="A">A. Nepal has very few children.</label>
+        <label><input type="radio" name="q7" value="B">B. Nepal has many children and young people.</label>
+        <label><input type="radio" name="q7" value="C">C. Most people in Nepal are elderly.</label>
+        <label><input type="radio" name="q7" value="D">D. Nepal has no people aged 15–24.</label>
+      </div>
+    </div>
+
+    <div class="q" id="q8">
+      <h3><span>Q8</span> Which statement best describes Nepal’s stage of development, based on its population pyramid?</h3>
+      <div class="options">
+        <label><input type="radio" name="q8" value="A">A. It has a very old, shrinking population like Japan.</label>
+        <label><input type="radio" name="q8" value="B">B. It has a young, growing population typical of many low-income countries.</label>
+        <label><input type="radio" name="q8" value="C">C. It has an even spread of ages like a high-income European country.</label>
+        <label><input type="radio" name="q8" value="D">D. It has more people aged over 65 than any other group.</label>
+      </div>
+    </div>
+
+    <div class="q" id="q9">
+      <h3><span>Q9</span> In the future, Nepal’s large number of young people could increase pressure on water supplies, especially in cities.</h3>
+      <div class="tf-row">
+        <label><input type="radio" name="q9" value="T">True</label>
+        <label><input type="radio" name="q9" value="F">False</label>
+      </div>
+    </div>
+
+    <div class="q" id="q10">
+      <h3><span>Q10</span> Which age group appears largest in Nepal’s population pyramid?</h3>
+      <div class="options">
+        <label><input type="radio" name="q10" value="A">A. 0–4 and 5–9</label>
+        <label><input type="radio" name="q10" value="B">B. 40–44</label>
+        <label><input type="radio" name="q10" value="C">C. 60–64</label>
+        <label><input type="radio" name="q10" value="D">D. 80+</label>
+      </div>
+    </div>
+
+    <div class="q" id="q11">
+      <h3><span>Q11</span> Match each population term with the best definition.</h3>
+      <div class="match-grid">
+        <div>
+          <div class="match-term">1. Youthful population</div>
+          <div class="match-term">2. Life expectancy</div>
+          <div class="match-term">3. Dependency ratio</div>
+          <div class="match-term">4. Birth rate</div>
+        </div>
+        <div>
+          <select name="q11_1" class="match-select">
+            <option value="">1 →</option>
+            <option value="A">A. Average number of years a person is expected to live.</option>
+            <option value="B">B. High proportion of children and young people.</option>
+            <option value="C">C. Babies born per 1,000 people per year.</option>
+            <option value="D">D. Ratio of non-working (young and old) to working-age people.</option>
+          </select>
+          <select name="q11_2" class="match-select">
+            <option value="">2 →</option>
+            <option value="A">A. Average number of years a person is expected to live.</option>
+            <option value="B">B. High proportion of children and young people.</option>
+            <option value="C">C. Babies born per 1,000 people per year.</option>
+            <option value="D">D. Ratio of non-working (young and old) to working-age people.</option>
+          </select>
+          <select name="q11_3" class="match-select">
+            <option value="">3 →</option>
+            <option value="A">A. Average number of years a person is expected to live.</option>
+            <option value="B">B. High proportion of children and young people.</option>
+            <option value="C">C. Babies born per 1,000 people per year.</option>
+            <option value="D">D. Ratio of non-working (young and old) to working-age people.</option>
+          </select>
+          <select name="q11_4" class="match-select">
+            <option value="">4 →</option>
+            <option value="A">A. Average number of years a person is expected to live.</option>
+            <option value="B">B. High proportion of children and young people.</option>
+            <option value="C">C. Babies born per 1,000 people per year.</option>
+            <option value="D">D. Ratio of non-working (young and old) to working-age people.</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 -->
+<section id="s3">
+  <div class="section-header warn">
+    <h2>Section 3 — Photographic Interpretation: Polluted River (India)</h2>
+    <p>Study the photograph of a polluted urban river in India to answer Questions 12–15.</p>
+  </div>
+  <div class="card">
+    <figure class="stimulus">
+      <img src="assets/yamuna-quiz.png" alt="Polluted urban river in India with thick white toxic foam">
+      <figcaption>Fig 3. Polluted urban river in India, with thick white foam from sewage and industrial waste.</figcaption>
+    </figure>
+
+    <div class="q" id="q12">
+      <h3><span>Q12</span> What does the thick white foam on the river’s surface most likely show?</h3>
+      <div class="options">
+        <label><input type="radio" name="q12" value="A">A. The river is very clean and full of oxygen.</label>
+        <label><input type="radio" name="q12" value="B">B. The river is polluted by sewage and chemicals.</label>
+        <label><input type="radio" name="q12" value="C">C. The river is frozen in winter.</label>
+        <label><input type="radio" name="q12" value="D">D. The foam comes from natural snow melt.</label>
+      </div>
+    </div>
+
+    <div class="q" id="q13">
+      <h3><span>Q13</span> Even if the water was boiled, it would still be unsafe to drink from this river.</h3>
+      <div class="tf-row">
+        <label><input type="radio" name="q13" value="T">True</label>
+        <label><input type="radio" name="q13" value="F">False</label>
+      </div>
+    </div>
+
+    <div class="q" id="q14">
+      <h3><span>Q14</span> Which group of people would be at greatest risk from this polluted river?</h3>
+      <div class="options">
+        <label><input type="radio" name="q14" value="A">A. People who only walk past the river once a year.</label>
+        <label><input type="radio" name="q14" value="B">B. People who depend on the river for washing, bathing or drinking.</label>
+        <label><input type="radio" name="q14" value="C">C. Tourists who take photos from a bridge.</label>
+        <label><input type="radio" name="q14" value="D">D. People who live hundreds of kilometres upstream.</label>
+      </div>
+    </div>
+
+    <div class="q" id="q15">
+      <h3><span>Q15</span> Which action is most likely to help improve the river’s water quality in the long term?</h3>
+      <div class="options">
+        <label><input type="radio" name="q15" value="A">A. Building more concrete embankments along the river.</label>
+        <label><input type="radio" name="q15" value="B">B. Allowing factories to keep dumping wastewater during festivals.</label>
+        <label><input type="radio" name="q15" value="C">C. Treating sewage and industrial waste before it enters the river.</label>
+        <label><input type="radio" name="q15" value="D">D. Removing all plants and trees from the river banks.</label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 -->
+<section id="s4">
+  <div class="section-header map">
+    <h2>Section 4 — Map Skills: India and Nepal</h2>
+    <p>Use the maps of India and Nepal to answer Questions 16–19.</p>
+  </div>
+  <div class="card">
+    <div class="two-col">
+      <figure class="stimulus">
+        <img src="assets/india-map.jpg" alt="Map of India with Delhi marked">
+        <figcaption>Fig 4a. Map of India with Delhi marked.</figcaption>
+      </figure>
+      <figure class="stimulus">
+        <img src="assets/nepal-map.jpg" alt="Map of Nepal with Kathmandu marked">
+        <figcaption>Fig 4b. Map of Nepal with Kathmandu marked.</figcaption>
+      </figure>
+    </div>
+
+    <div class="q" id="q16">
+      <h3><span>Q16</span> On the map of India, where is Delhi located?</h3>
+      <div class="options">
+        <label><input type="radio" name="q16" value="A">A. On the southern tip, near the Indian Ocean.</label>
+        <label><input type="radio" name="q16" value="B">B. On the north-western border with Pakistan.</label>
+        <label><input type="radio" name="q16" value="C">C. In the northern part of India, near the Yamuna River.</label>
+        <label><input type="radio" name="q16" value="D">D. On the eastern border with Myanmar.</label>
+      </div>
+    </div>
+
+    <div class="q" id="q17">
+      <h3><span>Q17</span> Nepal is a landlocked country (it has no coastline).</h3>
+      <div class="tf-row">
+        <label><input type="radio" name="q17" value="T">True</label>
+        <label><input type="radio" name="q17" value="F">False</label>
+      </div>
+    </div>
+
+    <div class="q" id="q18">
+      <h3><span>Q18</span> Which physical feature is shared by parts of both India and Nepal and is important for water resources?</h3>
+      <div class="options">
+        <label><input type="radio" name="q18" value="A">A. The Sahara Desert</label>
+        <label><input type="radio" name="q18" value="B">B. The Himalayan Mountains</label>
+        <label><input type="radio" name="q18" value="C">C. The Great Barrier Reef</label>
+        <label><input type="radio" name="q18" value="D">D. The Amazon Basin</label>
+      </div>
+    </div>
+
+    <div class="q" id="q19">
+      <h3><span>Q19</span> Match each water-related term with its best description.</h3>
+      <div class="match-grid">
+        <div>
+          <div class="match-term">1. Tributary</div>
+          <div class="match-term">2. Catchment (drainage basin)</div>
+          <div class="match-term">3. Estuary</div>
+          <div class="match-term">4. Groundwater</div>
+        </div>
+        <div>
+          <select name="q19_1" class="match-select">
+            <option value="">1 →</option>
+            <option value="A">A. Land area where rain and runoff drain into a river system.</option>
+            <option value="B">B. Underground water stored in soil and rock.</option>
+            <option value="C">C. Smaller stream or river that joins a larger river.</option>
+            <option value="D">D. Wide mouth of a river where fresh water meets the sea.</option>
+          </select>
+          <select name="q19_2" class="match-select">
+            <option value="">2 →</option>
+            <option value="A">A. Land area where rain and runoff drain into a river system.</option>
+            <option value="B">B. Underground water stored in soil and rock.</option>
+            <option value="C">C. Smaller stream or river that joins a larger river.</option>
+            <option value="D">D. Wide mouth of a river where fresh water meets the sea.</option>
+          </select>
+          <select name="q19_3" class="match-select">
+            <option value="">3 →</option>
+            <option value="A">A. Land area where rain and runoff drain into a river system.</option>
+            <option value="B">B. Underground water stored in soil and rock.</option>
+            <option value="C">C. Smaller stream or river that joins a larger river.</option>
+            <option value="D">D. Wide mouth of a river where fresh water meets the sea.</option>
+          </select>
+          <select name="q19_4" class="match-select">
+            <option value="">4 →</option>
+            <option value="A">A. Land area where rain and runoff drain into a river system.</option>
+            <option value="B">B. Underground water stored in soil and rock.</option>
+            <option value="C">C. Smaller stream or river that joins a larger river.</option>
+            <option value="D">D. Wide mouth of a river where fresh water meets the sea.</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 -->
+<section id="s5">
+  <div class="section-header">
+    <h2>Section 5 — Flooding and Water Scarcity</h2>
+    <p>Answer Questions 20–23 about floods and water scarcity.</p>
+  </div>
+  <div class="card">
+
+    <div class="q" id="q20">
+      <h3><span>Q20</span> Which natural event most often causes flooding in parts of India and Nepal?</h3>
+      <div class="options">
+        <label><input type="radio" name="q20" value="A">A. Earthquakes</label>
+        <label><input type="radio" name="q20" value="B">B. Monsoon rains and overflowing rivers</label>
+        <label><input type="radio" name="q20" value="C">C. Volcanic eruptions</label>
+        <label><input type="radio" name="q20" value="D">D. Snowstorms</label>
+      </div>
+    </div>
+
+    <div class="q" id="q21">
+      <h3><span>Q21</span> Flooding can be a benefit for some farmers because it brings fresh silt and nutrients to their fields.</h3>
+      <div class="tf-row">
+        <label><input type="radio" name="q21" value="T">True</label>
+        <label><input type="radio" name="q21" value="F">False</label>
+      </div>
+    </div>
+
+    <div class="q" id="q22">
+      <h3><span>Q22</span> Which statement best describes water scarcity?</h3>
+      <div class="options">
+        <label><input type="radio" name="q22" value="A">A. There is no water anywhere on Earth.</label>
+        <label><input type="radio" name="q22" value="B">B. There is not enough safe water available for people’s needs in a certain place or time.</label>
+        <label><input type="radio" name="q22" value="C">C. There is only salty water in the oceans.</label>
+        <label><input type="radio" name="q22" value="D">D. People refuse to drink water.</label>
+      </div>
+    </div>
+
+    <div class="q" id="q23">
+      <h3><span>Q23</span> A village in Nepal has heavy rainfall during the monsoon, but very little safe water in the dry season. Which action would most help reduce water scarcity there?</h3>
+      <div class="options">
+        <label><input type="radio" name="q23" value="A">A. Building a dam or water tanks to store water from the wet season.</label>
+        <label><input type="radio" name="q23" value="B">B. Cutting down trees on the slopes above the village.</label>
+        <label><input type="radio" name="q23" value="C">C. Letting polluted water flow directly into rivers.</label>
+        <label><input type="radio" name="q23" value="D">D. Only using water for farming and not for drinking.</label>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 6 -->
+<section id="s6">
+  <div class="section-header alt">
+    <h2>Section 6 — Text Source: Water in India</h2>
+    <p>Read the short text and answer Questions 24–26.</p>
+  </div>
+  <div class="card">
+    <div class="source-box">
+      <p>India has nearly <strong>18% of the world’s population but only about 4% of the world’s freshwater resources</strong>. Many rivers and groundwater sources are under pressure from overuse, pollution and a changing climate. In some areas, people walk long distances to collect safe drinking water. In others, floods can cause serious damage to homes, roads and crops.</p>
+      <cite>Adapted from sources on India’s water resources.</cite>
+    </div>
+
+    <div class="q" id="q24">
+      <h3><span>Q24</span> According to the text, what is the main challenge India faces with its water resources?</h3>
+      <div class="options">
+        <label><input type="radio" name="q24" value="A">A. It has more freshwater than any other country.</label>
+        <label><input type="radio" name="q24" value="B">B. It has many people but a relatively small share of the world’s freshwater.</label>
+        <label><input type="radio" name="q24" value="C">C. It has no rivers or groundwater at all.</label>
+        <label><input type="radio" name="q24" value="D">D. It only has salt water from the ocean.</label>
+      </div>
+    </div>
+
+    <div class="q" id="q25">
+      <h3><span>Q25</span> Both flooding and water scarcity are water-related problems that can affect people in India.</h3>
+      <div class="tf-row">
+        <label><input type="radio" name="q25" value="T">True</label>
+        <label><input type="radio" name="q25" value="F">False</label>
+      </div>
+    </div>
+
+    <div class="q" id="q26">
+      <h3><span>Q26</span> Which action would most help in reducing water problems described in the text?</h3>
+      <div class="options">
+        <label><input type="radio" name="q26" value="A">A. Ignoring pollution so water flows faster.</label>
+        <label><input type="radio" name="q26" value="B">B. Improving water management and treatment, such as protecting rivers and using water more efficiently.</label>
+        <label><input type="radio" name="q26" value="C">C. Letting people use as much water as they like.</label>
+        <label><input type="radio" name="q26" value="D">D. Cutting off all water use for farming.</label>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 7 -->
+<section id="s7">
+  <div class="section-header warn">
+    <h2>Section 7 — WaterAid Project in Nepal</h2>
+    <p>Read about a WaterAid project and answer Questions 27–30.</p>
+  </div>
+  <div class="card">
+    <div class="source-box">
+      <p>In Bardiya District, Nepal, <strong>WaterAid</strong> and local partners worked with schools to improve <strong>WASH</strong> (Water, Sanitation and Hygiene). They helped install safe drinking water taps, separate toilets for girls and boys, and handwashing stations. Teachers were trained to teach students about hygiene and to manage the school toilets. These changes made it easier for girls to attend school regularly, especially during <strong>menstruation</strong>.</p>
+      <cite>Adapted from WaterAid project descriptions in Nepal.</cite>
+    </div>
+
+    <div class="q" id="q27">
+      <h3><span>Q27</span> In this project, what does WASH stand for?</h3>
+      <div class="options">
+        <label><input type="radio" name="q27" value="A">A. Water, Agriculture and Soil Health</label>
+        <label><input type="radio" name="q27" value="B">B. Water, Sanitation and Hygiene</label>
+        <label><input type="radio" name="q27" value="C">C. Weather and Seasonal Hazards</label>
+        <label><input type="radio" name="q27" value="D">D. World Aid for School Health</label>
+      </div>
+    </div>
+
+    <div class="q" id="q28">
+      <h3><span>Q28</span> Having separate, clean toilets and water for handwashing can make it easier for girls to stay in school, especially during menstruation.</h3>
+      <div class="tf-row">
+        <label><input type="radio" name="q28" value="T">True</label>
+        <label><input type="radio" name="q28" value="F">False</label>
+      </div>
+    </div>
+
+    <div class="q" id="q29">
+      <h3><span>Q29</span> Which statement best describes the role of an NGO like WaterAid in this project?</h3>
+      <div class="options">
+        <label><input type="radio" name="q29" value="A">A. It replaces the government completely and runs all schools.</label>
+        <label><input type="radio" name="q29" value="B">B. It works with communities and governments to improve water, sanitation and hygiene.</label>
+        <label><input type="radio" name="q29" value="C">C. It only gives money and does nothing else.</label>
+        <label><input type="radio" name="q29" value="D">D. It only helps in high-income cities.</label>
+      </div>
+    </div>
+
+    <div class="q" id="q30">
+      <h3><span>Q30</span> Which of the following is the best overall benefit of the WASH project described?</h3>
+      <div class="options">
+        <label><input type="radio" name="q30" value="A">A. Students spend less time at school.</label>
+        <label><input type="radio" name="q30" value="B">B. The school buildings become taller.</label>
+        <label><input type="radio" name="q30" value="C">C. Students, especially girls, have safer water, better health and more chance to continue their education.</label>
+        <label><input type="radio" name="q30" value="D">D. Only teachers benefit, not students.</label>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACTIONS & MARKING -->
+<section>
+  <div class="card">
+    <div class="actions">
+      <button class="primary" id="markBtn">Mark quiz</button>
+      <button class="secondary" id="resetBtn">Reset answers</button>
+    </div>
+    <div class="result" id="resultBox">
+      <h3>Your result</h3>
+      <div><span class="score-badge" id="scoreText">0 / 30</span></div>
+      <div class="grade" id="gradeText">Grade: –</div>
+      <div id="percentText">Percentage: 0%</div>
+      <div class="fb-list" id="fbList"></div>
+      <div class="key-note">This quiz is based on Year 8 Geography content: Water in the World (climate graphs, population, water in India, flooding, water scarcity and NGO projects).</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const answers = {
+    q1:'B', q2:'C', q3:'A', q4:'T', q5:'C', q6:'A',
+    q7:'B', q8:'B', q9:'T', q10:'A',
+    q11:{'1':'B','2':'A','3':'D','4':'C'},
+    q12:'B', q13:'T', q14:'B', q15:'C',
+    q16:'C', q17:'T', q18:'B',
+    q19:{'1':'C','2':'A','3':'D','4':'B'},
+    q20:'B', q21:'T', q22:'B', q23:'A',
+    q24:'B', q25:'T', q26:'B',
+    q27:'B', q28:'T', q29:'B', q30:'C'
+  };
+
+  function markQuiz(){
+    let score = 0;
+    const feedback = [];
+
+    function checkMC(id){
+      const chosen = document.querySelector('input[name="'+id+'"]:checked');
+      const correct = answers[id];
+      if(!chosen){
+        feedback.push(id.toUpperCase()+': no answer selected.');
+        return;
+      }
+      if(chosen.value === correct){
+        score++; feedback.push(id.toUpperCase()+': correct.');
+      } else {
+        feedback.push(id.toUpperCase()+': incorrect. Correct answer is '+correct+'.');
+      }
+    }
+
+    function checkTF(id){ checkMC(id); }
+
+    function checkMatch(id){
+      const keyMap = answers[id];
+      let allCorrect = true;
+      Object.keys(keyMap).forEach(num =>{
+        const sel = document.querySelector('select[name="'+id+'_'+num+'"];');
+      });
+    }
+
+    // helper for match correct count
+    function checkMatchQ(id){
+      const keyMap = answers[id];
+      let correctCount = 0;
+      Object.entries(keyMap).forEach(([num, correct]) => {
+        const sel = document.querySelector('select[name="'+id+'_'+num+'"];');
+      });
+    }
+
+    // actually implement match marking (1 mark only if all four are correct)
+    function checkMatchAll(id){
+      const keyMap = answers[id];
+      let allCorrect = true;
+      Object.entries(keyMap).forEach(([num, correct]) => {
+        const sel = document.querySelector('select[name="'+id+'_'+num+'"]');
+        if(!sel || sel.value === ''){
+          allCorrect = false;
+        } else if(sel.value !== correct){
+          allCorrect = false;
+        }
+      });
+      if(allCorrect){
+        score++; feedback.push(id.toUpperCase()+': all matches correct.');
+      } else {
+        feedback.push(id.toUpperCase()+': some matches incorrect. Check the definitions.');
+      }
+    }
+
+    // Mark MC/TF questions
+    ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
+     'q12','q13','q14','q15','q16','q17','q18','q20','q21','q22','q23',
+     'q24','q25','q26','q27','q28','q29','q30']
+      .forEach(id=>{
+        if(['q4','q9','q13','q17','q21','q25','q28'].includes(id)){
+          checkTF(id);
+        } else {
+          checkMC(id);
+        }
+      });
+
+    // Mark matching Q11 and Q19
+    checkMatchAll('q11');
+    checkMatchAll('q19');
+
+    const total = 30;
+    const percent = Math.round((score/total)*100);
+    let grade = 'D';
+    if(percent >= 85) grade = 'A';
+    else if(percent >= 70) grade = 'B';
+    else if(percent >= 50) grade = 'C';
+
+    document.getElementById('scoreText').textContent = score+' / '+total;
+    document.getElementById('percentText').textContent = 'Percentage: '+percent+'%';
+    document.getElementById('gradeText').textContent = 'Grade: '+grade;
+
+    const fbList = document.getElementById('fbList');
+    fbList.innerHTML = '';
+    feedback.forEach(line=>{
+      const div = document.createElement('div');
+      div.className = 'fb-item';
+      div.textContent = line;
+      fbList.appendChild(div);
+    });
+
+    document.getElementById('resultBox').style.display = 'block';
+  }
+
+  function resetQuiz(){
+    document.querySelectorAll('input[type="radio"]').forEach(i=>i.checked=false);
+    document.querySelectorAll('select.match-select').forEach(s=>s.value='');
+    document.getElementById('resultBox').style.display = 'none';
+  }
+
+  document.getElementById('markBtn').addEventListener('click', markQuiz);
+  document.getElementById('resetBtn').addEventListener('click', resetQuiz);
+</script>
+
+</body>
+</html>
